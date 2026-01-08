@@ -1,0 +1,47 @@
+\subsection{Tìm kiếm và lọc sản phẩm}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/chap7/flow2.png}
+\end{figure}
+
+\subsubsection{User Story (nhu cầu sử dụng của người dùng)}
+\begin{quote}
+"Là một \textbf{sinh viên đang tìm kiếm học liệu}, tôi muốn có thể \textbf{tìm tài liệu và liên hệ với người đăng bài}, để \textbf{nhanh chóng tìm được học liệu phù hợp và trao đổi an toàn}."
+\end{quote}
+
+\subsubsection{Yêu cầu}
+\begin{itemize}
+    \item Người dùng \textbf{phải đăng nhập}.
+    \item Có thể \textbf{nhập từ khóa tìm kiếm} trong thanh tìm kiếm.
+    \item Có thể sử dụng các \textbf{bộ lọc}:
+    \begin{itemize}
+        \item Loại bài đăng (\textbf{Trao đổi / Pass / Cho tặng})
+        \item Vị trí (\textbf{Cơ sở 1, Cơ sở 2, \ldots})
+        \item Ngành học hoặc môn học (\textbf{tùy chọn})
+    \end{itemize}
+    \item Nếu \textbf{không có kết quả} $\rightarrow$ hiển thị thông báo \textit{``Không tìm thấy bài đăng phù hợp''} và gợi ý thử lại từ khóa khác.
+    \item Nếu \textbf{có kết quả} $\rightarrow$ hiển thị \textbf{danh sách bài đăng dạng thẻ} (thumbnail + tiêu đề + loại).
+    \item Người dùng có thể:
+    \begin{itemize}
+        \item Nhấn \textbf{``Xem chi tiết''} để xem bài cụ thể.
+        \item Nhấn \textbf{``Quay lại''} để trở về danh sách.
+    \end{itemize}
+    \item Trong trang chi tiết:
+    \begin{itemize}
+        \item Có thể \textbf{để lại bình luận}.
+        \item Có thể \textbf{liên hệ trực tiếp qua nút ``Chat ngay''}.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Luồng hoạt động}
+\begin{enumerate}
+    \item \textbf{Start:} Home screen.
+    \item Click vào \textbf{search bar} và nhập \textbf{Keyword} cần tìm.
+    \item Thêm các \textbf{bộ lọc}: Loại bài đăng (swap, pass, free), Vị trí,\ldots
+    \item Nếu \textbf{không có kết quả} $\rightarrow$ dừng search hoặc đổi keyword khác.
+    \item Nếu \textbf{có kết quả} $\rightarrow$ chuyển sang màn hình danh sách các \textbf{cards}.
+    \item Từ các cards $\rightarrow$ chọn \textbf{``View detail''}.
+    \item Có nút \textbf{``Back''} để trở lại danh sách cards.
+    \item Nếu bài phù hợp $\rightarrow$ có thể \textbf{bình luận} hoặc \textbf{liên hệ trực tiếp} qua nút ``Chat ngay''.
+\end{enumerate}

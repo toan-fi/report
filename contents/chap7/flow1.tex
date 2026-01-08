@@ -1,0 +1,50 @@
+\subsection{Đăng tin bán / cho tặng}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/chap7/flow1.png}
+\end{figure}
+
+\subsubsection{User Story (nhu cầu sử dụng của người dùng)}
+\begin{quote}
+"Là một sinh viên Bách Khoa, tôi muốn tạo một bài đăng để cho/tặng, trao đổi hoặc pass lại học liệu, dụng cụ học tập, để các sinh viên khác có thể dễ dàng tìm và tái sử dụng chúng."
+\end{quote}
+
+\subsubsection{Yêu cầu}
+\begin{itemize}
+    \item Người dùng phải đăng nhập bằng email xác thực \texttt{@hcmut.edu.vn}.
+    \item Người dùng có thể truy cập tính năng \textbf{``Đăng bài mới''} từ trang chủ.
+    \item Mẫu đăng bài bao gồm các trường:
+    \begin{itemize}
+        \item Tiêu đề
+        \item Nội dung / mô tả chi tiết
+        \item Chọn giá
+        \item Chọn danh mục
+        \item Vị trí (Cơ sở 1, Cơ sở 2, \ldots)
+        \item Ảnh (chọn từ thư viện thiết bị)
+        \item Thông tin liên hệ (Facebook, số điện thoại, hoặc chat trực tiếp trong app)
+    \end{itemize}
+    \item Các trường bắt buộc phải được điền; nếu thiếu sẽ được \textbf{tô đỏ và hiển thị thông báo ``Must fill''}.
+    \item Sau khi hoàn tất, người dùng có thể xem trước bài đăng (\textbf{Post Preview}).
+    \item Ở màn hình xem trước:
+    \begin{itemize}
+        \item ``Post'' để xác nhận đăng bài.
+        \item ``Edit'' để quay lại chỉnh sửa.
+    \end{itemize}
+    \item Sau khi đăng thành công, hệ thống trở về trang chủ và bài vừa đăng sẽ xuất hiện đầu tiên.
+    \item Có tùy chọn \textbf{``Cancel Post''} ở mọi bước để hủy bài.
+\end{itemize}
+
+\subsubsection{Luồng hoạt động}
+\begin{enumerate}
+    \item \textbf{Start:} Home screen.
+    \item Chọn \textbf{``New Post''}.
+    \item Màn hình đăng bài hiện ra với các trường: Tiêu đề, nội dung, loại bài đăng (Cho/tặng, trao đổi, pass), Vị trí (Cơ sở 1, 2,\ldots).
+    \item Nếu các trường chưa được điền đầy đủ thì các fields đó sẽ được \textbf{highlight đỏ và hiển thị ``Must fill''}.
+    \item Sau khi điền đầy đủ các fields $\rightarrow$ chọn ảnh từ thư viện.
+    \item Sau khi chọn ảnh $\rightarrow$ để lại contact (Facebook, số điện thoại) hoặc chọn \textbf{liên hệ trực tiếp qua app}.
+    \item Sau khi hoàn tất $\rightarrow$ chuyển đến màn hình \textbf{``Post preview''} để kiểm tra lại thông tin.
+    \item Nếu thông tin đã chính xác $\rightarrow$ chọn \textbf{``Post''} $\rightarrow$ đăng thành công $\rightarrow$ trở về Home screen $\rightarrow$ bài vừa đăng xuất hiện đầu tiên.
+    \item Nếu muốn sửa thông tin $\rightarrow$ chọn \textbf{``Edit''} để quay lại màn hình nhập fields.
+    \item Ở mọi bước, có thể chọn \textbf{``Cancel Post''} để hủy bài đăng.
+\end{enumerate}

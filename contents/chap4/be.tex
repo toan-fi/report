@@ -1,0 +1,114 @@
+\subsection{Lý thuyết về kiến trúc hệ thống}
+\subsubsection{Kiến trúc Monolithic}
+Kiến trúc Monolithic là mô hình kiến trúc trong đó toàn bộ các phần của hệ thống như giao diện, xử lý nghiệp vụ và truy cập dữ liệu được gộp chung trong một ứng dụng duy nhất. Ứng dụng được xây dựng và triển khai như một khối thống nhất. Mọi thành phần của hệ thống chạy trong cùng tiến trình, dùng chung tài nguyên và phụ thuộc chặt chẽ vào nhau.
+
+\textbf{Đặc điểm:}
+\begin{itemize}
+    \item Mọi chức năng nằm trong \textbf{một mã nguồn và một tiến trình chạy}\cite{c4-mono}.
+    \item Các phần hệ thống phụ thuộc chặt chẽ vào nhau.
+    \item Thường tổ chức theo các tầng: Presentation – Business – Data Access\cite{c4-mono}.
+\end{itemize}
+
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item Dễ phát triển ban đầu, phù hợp nhóm nhỏ.
+    \item Triển khai đơn giản, ít yêu cầu hạ tầng\cite{c4-mono}.
+    \item Hiệu năng tốt cho hệ thống nhỏ.
+    \item Kiểm thử tổng thể dễ dàng.
+\end{itemize}
+
+\textbf{Nhược điểm:}
+\begin{itemize}
+    \item Khó mở rộng, phải mở rộng cả hệ thống.
+    \item Khó bảo trì khi lớn dần, dễ bị rối.
+    \item Triển khai chậm, khi cần thay đổi nhỏ cũng phải re-deploy toàn bộ hệ thống.
+    \item Khả năng chịu lỗi thấp.
+    \item Khó áp dụng công nghệ mới cho từng phần riêng.
+\end{itemize}
+
+
+
+\subsubsection{Kiến trúc Microservices}
+Kiến trúc Microservices là kiến trúc mà ở đó hệ thống được phân tách thành các dịch vụ (service) nhỏ, độc lập — mỗi dịch vụ đảm nhận một chức năng riêng và có thể phát triển cũng như triển khai mà không ảnh hưởng đến phần còn lại.
+
+Các dịch vụ giao tiếp với nhau qua API hoặc các kênh trao đổi nhẹ, cho phép hệ thống linh hoạt, dễ mở rộng, dễ bảo trì và thuận tiện khi cần nâng cấp hoặc mở rộng từng phần riêng lẻ.
+
+\textbf{Đặc điểm:}
+\begin{itemize}
+    \item Mỗi dịch vụ có \textbf{mã nguồn và vòng đời triển khai riêng}\cite{c4-micro}.
+    \item Dịch vụ có thể dùng \textbf{ngôn ngữ hoặc công nghệ khác nhau}.
+    \item Dễ phân tách theo nghiệp vụ, phù hợp tổ chức theo nhóm nhỏ độc lập\cite{c4-micro}.
+\end{itemize}
+
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item Dễ mở rộng, có thể mở rộng từng dịch vụ theo nhu cầu.
+    \item Triển khai linh hoạt, thay đổi dịch vụ này không ảnh hưởng dịch vụ khác.
+    \item Tăng tính ổn định, lỗi dịch vụ không làm sập toàn hệ thống.
+    \item Cho phép áp dụng công nghệ khác nhau cho từng phần.
+\end{itemize}
+
+\textbf{Nhược điểm:}
+\begin{itemize}
+    \item Phức tạp hơn kiến trúc Monolithic, đòi hỏi DevOps và hạ tầng tốt.
+    \item Theo dõi và kiểm thử khó hơn vì hệ thống phân tán\cite{c4-micro}.
+    \item Chi phí giao tiếp giữa các dịch vụ cao hơn\cite{c4-micro}.
+    \item Cần thêm các thành phần như API Gateway, dịch vụ quản lý cấu hình, giám sát phân tán.
+\end{itemize}
+
+
+
+\subsubsection{Kiến trúc EDA + Cloud-Native}
+Kiến trúc EDA (Event-Driven Architecture) + Cloud-Native được phát triển dựa trên kiến trúc Microservices mà ở đó có hai điểm khác biệt rõ nhất đó là tổ chức hệ thống theo mô hình phát sinh sự kiện (event) – truyền sự kiện – xử lý sự kiện và hướng tới xây dựng ứng dụng tối ưu cho môi trường điện toán đám mây, thường dựa trên container và nền tảng điều phối như Docker hoặc Kubernetes.
+
+Khi kết hợp, hệ thống trở nên linh hoạt, mở rộng tốt, xử lý bất đồng bộ hiệu quả và phù hợp với môi trường phân tán hiện đại.
+
+\textbf{Đặc điểm:}
+\begin{itemize}
+    \item Giao tiếp qua sự kiện, thông qua hàng đợi hoặc hệ thống truyền tin\cite{c4-eda}.
+    \item Sử dụng container và hoạt động trên môi trường Cloud nên có khả năng \textbf{tự động mở rộng, tự phục hồi}\cite{c4-eda}.
+    \item Hoạt động tốt trong môi trường nhiều dịch vụ, khối lượng dữ liệu lớn và thay đổi nhanh.
+\end{itemize}
+
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item Xử lý bất đồng bộ, phù hợp tải cao\cite{c4-eda}.
+    \item Khả năng mở rộng rất tốt, tự tăng/giảm tài nguyên theo nhu cầu\cite{c4-eda}.
+    \item Tính chịu lỗi cao, sự kiện được lưu lại ngay cả khi dịch vụ xử lý tạm lỗi\cite{c4-eda}.
+    \item Dễ thêm chức năng mới, chỉ cần thêm dịch vụ tiêu thụ sự kiện.
+    \item Tối ưu chi phí, phân bổ tài nguyên linh hoạt.
+\end{itemize}
+
+\textbf{Nhược điểm:}
+\begin{itemize}
+    \item Thiết kế và vận hành phức tạp, đòi hỏi hiểu biết sâu về truyền tin, hàng đợi, container\cite{c4-eda}.
+    \item Khó theo dõi luồng xử lý, cần công cụ giám sát mạnh.
+    \item Việc thiết kế sự kiện không hợp lý có thể gây trùng dữ liệu hoặc rối luồng xử lý\cite{c4-eda}.
+    \item Cần hạ tầng cloud và DevOps tốt\cite{c4-eda}.
+\end{itemize}
+
+
+
+\subsubsection{So sánh giữa các kiến trúc hệ thống}
+
+\begin{table}[H]
+\centering
+\caption{So sánh giữa các kiến trúc hệ thống}
+\label{tab:sosanh}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Tiêu chí} & \textbf{Monolithic} & \textbf{Microservices} & \textbf{EDA + Cloud-Native} \\ \hline
+\textbf{Khả năng mở rộng} & Tệ & Tốt & Rất tốt \\ \hline
+\textbf{Mức độ phức tạp} & Thấp & Trung bình & Cao \\ \hline
+\textbf{Độ tin cậy} & Thấp & Ổn & Rất tốt \\ \hline
+\textbf{Chi phí vận hành} & Thấp & Trung bình & Cao \\ \hline
+\textbf{Tốc độ triển khai} & Chậm & Nhanh & Rất nhanh \\ \hline
+\textbf{Tính linh hoạt} & Thấp & Cao & Rất cao \\ \hline
+\textbf{Phù hợp quy mô hệ thống} & Nhỏ -- trung bình & Lớn & Rất lớn / phân tán \\ \hline
+\textbf{Hiệu quả khi chạy trên Cloud} & Tệ & Tốt & Rất tốt \\ \hline
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{table}
+
+Nhìn chung, các kiến trúc Monolithic, Microservices và EDA + Cloud-Native khác nhau chủ yếu ở mức độ phân tách thành phần và cách các thành phần giao tiếp với nhau. Mỗi kiến trúc thể hiện một mức độ tiến hóa khác nhau trong cách tổ chức hệ thống phần mềm hiện đại. Trong tiến trình phát triển kiến trúc phần mềm, xu hướng đang chuyển dần từ mô hình nguyên khối sang các mô hình phân tán và sự kiện nhằm đáp ứng nhu cầu mở rộng, độ tin cậy và tính linh hoạt cao hơn. Các kiến trúc hiện đại như Microservices và EDA + Cloud-Native được xem là phù hợp với môi trường triển khai đa nền tảng, tự động hóa và điện toán đám mây.

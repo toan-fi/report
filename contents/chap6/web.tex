@@ -1,0 +1,112 @@
+Hệ thống backend của \textbf{StudyShare} được thiết kế theo mô hình \textbf{RESTful Web Service}, đóng vai trò là lớp trung gian giữa ứng dụng di động và cơ sở dữ liệu. Backend chịu trách nhiệm xử lý toàn bộ logic nghiệp vụ cốt lõi như xác thực người dùng, quản lý bài đăng học liệu, nhắn tin thời gian thực, thông báo, và tải tệp hình ảnh.
+
+Toàn bộ API được tổ chức theo chuẩn REST với \textbf{API versioning} (\texttt{/api/v1}), sử dụng định dạng dữ liệu \textbf{JSON} nhằm đảm bảo tính nhất quán, dễ tích hợp và mở rộng trong tương lai. Các endpoint được phân chia rõ ràng theo từng module chức năng như \texttt{auth}, \texttt{users}, \texttt{posts}, \texttt{chat}, \texttt{notifications}, \texttt{upload} và \texttt{common}.
+
+Thiết kế web service tuân thủ nguyên tắc \textbf{SoC (separation of concerns)}, phù hợp với kiến trúc \textbf{MVC / Clean Architecture}, trong đó:
+\begin{itemize}
+    \item \textbf{Router} chịu trách nhiệm định nghĩa endpoint và xử lý request/response,
+    \item \textbf{Service layer} xử lý logic nghiệp vụ,
+    \item \textbf{Model} quản lý tương tác với cơ sở dữ liệu.
+\end{itemize}
+
+\subsection{Authentication \& Authorization}
+Hệ thống xác thực được xây dựng dựa trên \textbf{JWT (JSON Web Token)}, kết hợp giữa \textbf{Access Token} và \textbf{Refresh Token} nhằm cân bằng giữa bảo mật và trải nghiệm người dùng.
+\begin{itemize}
+    \item \textbf{Access Token} có thời hạn ngắn (15 phút), được sử dụng cho các request cần xác thực.
+    \item \textbf{Refresh Token} có thời hạn dài hơn (7 ngày), được lưu trong cơ sở dữ liệu để phục vụ việc cấp lại access token khi hết hạn.
+\end{itemize}
+Ngoài hình thức đăng nhập bằng email/mật khẩu, hệ thống còn hỗ trợ \textbf{Google OAuth}, trong đó backend đảm nhiệm việc \textbf{xác thực Google ID Token} do ứng dụng di động gửi lên. Cách tiếp cận này giúp giảm rào cản đăng ký, đồng thời tăng độ tin cậy của người dùng.
+
+Các endpoint xác thực chính bao gồm:
+\begin{itemize}
+    \item Đăng ký (\texttt{/auth/register})
+    \item Đăng nhập (\texttt{/auth/login})
+    \item Đăng nhập Google (\texttt{/auth/google})
+    \item Làm mới token (\texttt{/auth/refresh})
+    \item Đăng xuất (\texttt{/auth/logout})
+\end{itemize}
+Tất cả các endpoint nhạy cảm đều yêu cầu header \texttt{Authorization: Bearer <access\_token>}.
+
+\subsection{User Management}
+Dịch vụ quản lý người dùng cho phép:
+\begin{itemize}
+    \item Truy xuất hồ sơ cá nhân của người dùng đang đăng nhập,
+    \item Cập nhật thông tin cá nhân (tên, ảnh đại diện),
+    \item Xem danh sách bài đăng của một người dùng bất kỳ (public endpoint).
+\end{itemize}
+Việc tách riêng các endpoint liên quan đến người dùng giúp dễ dàng kiểm soát quyền truy cập và mở rộng trong tương lai (ví dụ: phân quyền, quản lý hồ sơ nâng cao).
+
+\subsection{Common Data}
+Các dữ liệu dùng chung như \textbf{khoa}, \textbf{môn học}, và \textbf{danh mục học liệu} được cung cấp thông qua các endpoint public, không yêu cầu xác thực. Đây là các dữ liệu ít thay đổi, được thiết kế để:
+\begin{itemize}
+    \item Giảm tải cho hệ thống bằng cách cho phép client cache,
+    \item Đảm bảo tính nhất quán khi người dùng tạo hoặc lọc bài đăng.
+\end{itemize}
+Việc tách nhóm endpoint \texttt{common} giúp hệ thống rõ ràng về mặt trách nhiệm và dễ bảo trì.
+
+\subsection{Posts Management}
+Dịch vụ quản lý bài đăng là \textbf{chức năng cốt lõi} của StudyShare, cho phép sinh viên đăng, tìm kiếm và quản lý học liệu.
+
+Các endpoint hỗ trợ đầy đủ các thao tác:
+\begin{itemize}
+    \item Tạo bài đăng mới (yêu cầu xác thực),
+    \item Lấy danh sách bài đăng với \textbf{pagination và bộ lọc nâng cao} (theo môn học, danh mục, trạng thái, từ khóa),
+    \item Xem chi tiết bài đăng (tự động tăng lượt xem),
+    \item Cập nhật và xóa bài đăng (chỉ chủ sở hữu).
+\end{itemize}
+Bài đăng không bị xóa vật lý khỏi hệ thống mà sử dụng \textbf{soft delete} thông qua trạng thái \texttt{HIDDEN}, giúp đảm bảo tính toàn vẹn dữ liệu và thuận tiện cho việc phân tích hoặc khôi phục.
+
+\subsection{Real-time Chat}
+Hệ thống chat được thiết kế theo mô hình \textbf{kết hợp REST API và WebSocket}:
+\begin{itemize}
+    \item REST API dùng để tạo cuộc hội thoại và lấy lịch sử tin nhắn,
+    \item WebSocket dùng cho nhắn tin thời gian thực.
+\end{itemize}
+
+Mỗi cuộc trò chuyện được định danh bằng \texttt{conversation\_id}, và kết nối WebSocket yêu cầu access token hợp lệ để xác thực người dùng. Thiết kế này đảm bảo:
+\begin{itemize}
+    \item Tin nhắn được truyền tải tức thời,
+    \item Lịch sử hội thoại được lưu trữ an toàn trong cơ sở dữ liệu,
+    \item Hỗ trợ mở rộng cho các loại tin nhắn khác (TEXT, IMAGE).
+\end{itemize}
+
+\subsection{Notification}
+Hệ thống thông báo cho phép người dùng:
+\begin{itemize}
+    \item Nhận thông báo khi có tin nhắn mới hoặc tương tác liên quan,
+    \item Xem danh sách thông báo với phân trang,
+    \item Đánh dấu thông báo đã đọc hoặc đọc tất cả.
+\end{itemize}
+Thiết kế notification tách biệt giúp backend có thể dễ dàng mở rộng sang các loại thông báo khác như hệ thống, tương tác bài đăng hoặc nhắc nhở trong tương lai.
+
+\subsection{File Upload}
+Dịch vụ upload hình ảnh được thiết kế riêng nhằm:
+\begin{itemize}
+    \item Giảm độ phức tạp cho các endpoint khác,
+    \item Đảm bảo kiểm soát định dạng và dung lượng tệp.
+\end{itemize}
+
+Quy trình sử dụng gồm hai bước:
+\begin{enumerate}
+    \item Upload ảnh để nhận URL công khai,
+    \item Sử dụng URL này khi tạo bài đăng hoặc cập nhật hồ sơ.
+\end{enumerate}
+Cách tiếp cận này giúp backend linh hoạt khi chuyển sang các giải pháp lưu trữ đám mây (S3, CDN, v.v.).
+
+\subsection{Validation \& Error Handling}
+Tất cả dữ liệu đầu vào đều được \textbf{validate bằng Pydantic}, giúp:
+\begin{itemize}
+    \item Phát hiện lỗi sớm,
+    \item Trả về thông báo lỗi rõ ràng, có cấu trúc.
+\end{itemize}
+Hệ thống sử dụng \textbf{chuẩn HTTP status code}, kết hợp với định dạng lỗi thống nhất (\texttt{detail}) để ứng dụng di động dễ dàng xử lý và hiển thị cho người dùng.
+
+\subsection{Security}
+Các biện pháp bảo mật chính được áp dụng bao gồm:
+\begin{itemize}
+    \item JWT cho xác thực và phân quyền,
+    \item Hash mật khẩu an toàn,
+    \item Lưu refresh token trong database để kiểm soát vòng đời đăng nhập,
+    \item Giới hạn quyền truy cập theo vai trò (chủ bài đăng),
+    \item Kiểm soát WebSocket bằng token hợp lệ.
+\end{itemize}

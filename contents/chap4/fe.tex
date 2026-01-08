@@ -1,0 +1,115 @@
+\subsection{Lý thuyết về AI Agent}
+\subsubsection{Trí tuệ nhân tạo}
+Trí tuệ nhân tạo (Artificial Intelligence – AI) là công nghệ cho phép máy tính và các hệ thống kỹ thuật mô phỏng những năng lực cốt lõi của trí tuệ con người như học tập, hiểu biết, giải quyết vấn đề, ra quyết định, sáng tạo và hành động tự chủ. Các hệ thống AI có khả năng nhận biết môi trường, hiểu và phản hồi ngôn ngữ tự nhiên, học hỏi từ dữ liệu và kinh nghiệm, đồng thời thực hiện các hành động mà không cần hoặc cần rất ít sự can thiệp của con người\cite{c4-ai}.
+
+AI được xây dựng dựa trên nhiều kỹ thuật và mô hình tính toán khác nhau, trong đó học máy và học sâu đóng vai trò nền tảng. Các ứng dụng được trang bị AI có thể phân tích dữ liệu phức tạp, đưa ra khuyến nghị chi tiết và hỗ trợ hoặc thay thế con người trong nhiều lĩnh vực như giao thông tự hành, chăm sóc khách hàng và phân tích dữ liệu\cite{c4-ai}.
+
+Các lĩnh vực chính của Trí tuệ nhân tạo bao gồm:
+\begin{itemize}
+    \item Học máy (Machine Learning)
+    \item Học sâu (Deep Learning)
+    \item Trí tuệ nhân tạo sinh (Generative AI)
+\end{itemize}
+
+Phần lớn các hệ thống AI hiện nay thuộc nhóm AI hẹp (Weak AI hay Narrow AI), được thiết kế để thực hiện hiệu quả một nhiệm vụ hoặc một nhóm nhiệm vụ cụ thể. Trí tuệ nhân tạo tổng quát (Strong AI hay AGI), với khả năng hiểu và áp dụng tri thức trên nhiều lĩnh vực ở mức tương đương hoặc vượt con người, hiện vẫn mang tính lý thuyết và chưa được hiện thực hóa\cite{c4-ai}.
+
+
+\subsubsection{AI Agent}
+AI Agent là mô hình Trí tuệ nhân tạo được mở rộng thêm khả năng hành động thông qua các công cụ được tích hợp. Thay vì chỉ sinh văn bản, Agent có thể phân tích yêu cầu, lập kế hoạch, lựa chọn hành động phù hợp và truy xuất dữ liệu thực tế từ các nguồn bên ngoài\cite{c4-agent}.
+
+Một AI Agent điển hình bao gồm:
+\begin{itemize}
+    \item \textbf{Bộ tư duy (reasoning loop)} để phân tích và hiểu mục tiêu\cite{c4-agent}.
+    \item \textbf{Bộ lập kế hoạch (planner)} để xác định các bước thực hiện\cite{c4-agent}.
+    \item \textbf{Cơ chế tool/function calling} để gọi API, truy vấn cơ sở dữ liệu hoặc xử lý thông tin\cite{c4-agent}.
+\end{itemize}
+
+
+
+\subsubsection{Multi-Agent}
+Hệ đa tác tử (Multi-Agent Systems -- MAS) là một tập hợp các AI Agent chuyên biệt cùng hoạt động để giải quyết một bài toán phức tạp nhằm đạt được một mục tiêu chung. Trong hệ thống này, mỗi agent đảm nhiệm một vai trò cụ thể và thực hiện các nhiệm vụ khác nhau, đóng góp vào kết quả tổng thể của hệ thống. Khác với các hệ thống AI đơn tác tử (Single AI Agent), hệ đa tác tử được thiết kế nhằm xử lý các nhiệm vụ có nhiều thành phần phụ thuộc lẫn nhau. Việc phân chia chức năng cho nhiều agent cho phép hệ thống hoạt động hiệu quả hơn trong các bài toán phức tạp và quy mô lớn.
+
+Mỗi agent trong hệ có mức độ tự chủ nhất định, sở hữu năng lực chuyên biệt và chỉ nắm giữ một phần thông tin cục bộ của hệ thống. Thông qua việc giao tiếp và chia sẻ thông tin, các agent phối hợp với nhau để đạt được mục tiêu chung.
+
+Điều phối tác tử (Agent Orchestration) là cơ chế cho phép nhiều agent hoặc công cụ vốn hoạt động độc lập phối hợp với nhau trong cùng một hệ thống nhằm hoàn thành một mục tiêu chung\cite{c4-multi_agent}. Điều phối đóng vai trò là khung kiểm soát giúp hệ đa tác tử đạt được khả năng mở rộng, hiệu quả và thích ứng.
+
+Các mô hình điều phối phổ biến gồm:
+\begin{itemize}
+    \item Điều phối tập trung (Centralized Orchestration), trong đó một agent giám sát chịu trách nhiệm điều phối nhiệm vụ, luồng dữ liệu và quyết định\cite{c4-multi_agent}.
+    \item Điều phối phân tán (Decentralized Orchestration), trong đó các agent hoạt động độc lập và chia sẻ thông tin với nhau\cite{c4-multi_agent}.
+    \item Điều phối liên kết (Federated Orchestration), cho phép nhiều hệ đa tác tử thuộc các tổ chức khác nhau phối hợp thông qua các giao thức chung\cite{c4-multi_agent}.
+    \item Điều phối phân cấp (Hierarchical Orchestration), trong đó các agent được tổ chức theo cấu trúc nhiều tầng với sự giám sát từ các agent cấp cao\cite{c4-multi_agent}.
+\end{itemize}
+
+
+
+\subsubsection{ReAct}
+ReAct (Reasoning and Acting) là một phương pháp prompting cho mô hình ngôn ngữ lớn (LLMs), được đề xuất nhằm kết hợp lập luận bằng ngôn ngữ và hành động tương tác với môi trường trong cùng một tiến trình giải quyết nhiệm vụ\cite{yao2023reactsynergizingreasoningacting}.
+
+Trong ReAct, mô hình hoạt động như một agent tương tác theo chuỗi xen kẽ Thought – Action – Observation. Ở mỗi bước, mô hình sinh ra:
+\begin{itemize}
+    \item Thought: bước suy luận bằng ngôn ngữ tự nhiên để phân tích ngữ cảnh và lập kế hoạch\cite{yao2023reactsynergizingreasoningacting}.
+    \item Action: hành động cụ thể để tương tác với môi trường hoặc công cụ bên ngoài (ví dụ: truy vấn thông tin)\cite{yao2023reactsynergizingreasoningacting}.
+    \item Observation: kết quả quan sát được từ hành động vừa thực hiện, làm đầu vào cho bước tiếp theo\cite{yao2023reactsynergizingreasoningacting}.
+\end{itemize}
+Điểm đặc trưng của ReAct là các bước suy luận không trực tiếp tác động đến môi trường, nhưng được sử dụng để định hướng hành động, trong khi các hành động giúp thu thập thông tin mới nhằm hỗ trợ quá trình suy luận tiếp theo\cite{yao2023reactsynergizingreasoningacting}.
+
+ReAct thường được triển khai dưới dạng prompting với một vài ví dụ (few-shot prompting), không yêu cầu huấn luyện lại mô hình, và đã cho thấy hiệu quả trong các tác vụ như hỏi đáp nhiều bước, truy xuất tri thức và điều hướng môi trường văn bản\cite{yao2023reactsynergizingreasoningacting}.
+
+Nhờ khả năng kết hợp lập luận và hành động, ReAct giúp tăng tính minh bạch của quá trình suy luận và giảm hiện tượng sinh thông tin sai lệch so với các phương pháp chỉ dựa trên suy luận nội bộ\cite{yao2023reactsynergizingreasoningacting}.
+
+
+
+\subsubsection{LLMCompiler}
+LLMCompiler là một bộ khung trong thiết kế AI Agent được đề xuất nhằm hỗ trợ AI Agent thực hiện gọi hàm song song trong quá trình giải quyết các tác vụ phức tạp. Khác với các phương pháp truyền thống dựa trên suy luận và hành động tuần tự, LLMCompiler tiếp cận bài toán theo hướng lấy cảm hứng từ trình biên dịch, trong đó đầu vào ngôn ngữ tự nhiên được chuyển đổi thành các tác vụ có cấu trúc và mối quan hệ phụ thuộc rõ ràng.
+
+Cốt lõi của LLMCompiler là việc phân rã yêu cầu của người dùng thành một tập các tác vụ nhỏ, được biểu diễn dưới dạng đồ thị phụ thuộc có hướng không chu trình (Directed Acyclic Graph – DAG). Các tác vụ độc lập trong đồ thị có thể được thực thi đồng thời, từ đó giảm độ trễ và tăng hiệu quả thực thi so với cách tiếp cận tuần tự\cite{kim2024llmcompilerparallelfunction}.
+
+Một hệ thống LLMCompiler điển hình bao gồm:
+\begin{itemize}
+    \item Bộ lập kế hoạch gọi hàm (Function Calling Planner) để phân tích đầu vào và tạo đồ thị biểu diễn tác vụ\cite{kim2024llmcompilerparallelfunction}.
+    \item Bộ phân phối tác vụ (Task Fetching Unit) để theo dõi trạng thái phụ thuộc và kích hoạt các tác vụ sẵn sàng thực thi\cite{kim2024llmcompilerparallelfunction}.
+    \item Bộ thực thi (Executor) để thực hiện song song các tác vụ thông qua các công cụ hoặc hàm được cung cấp\cite{kim2024llmcompilerparallelfunction}.
+\end{itemize}
+Ngoài ra, LLMCompiler còn hỗ trợ lập kế hoạch động, cho phép điều chỉnh lại đồ thị tác vụ trong quá trình thực thi dựa trên các kết quả trung gian, phù hợp với các bài toán có cấu trúc phụ thuộc phức tạp và thay đổi theo thời gian.
+
+
+
+\subsubsection{RAG}
+RAG (Retrieval-Augmented Generation) là kỹ thuật kết hợp mô hình ngôn ngữ với hệ thống truy xuất thông tin nhằm nâng cao độ chính xác và tính nhất quán của câu trả lời. Thay vì dựa hoàn toàn vào kiến thức có sẵn trong mô hình, RAG tìm kiếm các tài liệu liên quan từ nguồn dữ liệu bên ngoài rồi đưa chúng vào ngữ cảnh (context) để mô hình sinh câu trả lời\cite{c4-rag}.
+
+Quy trình RAG gồm ba bước:
+\begin{itemize}
+    \item \textbf{Embedding}: chuyển tài liệu thành dạng vector số\cite{c4-rag}.
+    \item \textbf{Retrieval}: tìm các vector gần nhất với vector ứng với câu hỏi của người dùng\cite{c4-rag}.
+    \item \textbf{Augmentation}: đưa nội dung truy xuất được vào ngữ cảnh trước khi cho mô hình trả lời\cite{c4-rag}.
+\end{itemize}
+
+RAG đặc biệt hữu ích trong các hệ thống yêu cầu thông tin chính xác, cập nhật và bám sát dữ liệu nội bộ, giúp giảm thiểu hiện tượng mô hình sinh ra những thông tin, sự kiện không có thật\cite{c4-rag}.
+
+
+
+\subsubsection{Đồ thị tri thức}
+Đồ thị tri thức (Knowledge Graph) là mô hình biểu diễn tri thức dưới dạng đồ thị, trong đó các thực thể được biểu diễn bằng các nút (nodes) và các quan hệ giữa chúng bằng cạnh (edges)\cite{c4-kg}. Cấu trúc này cho phép lưu trữ thông tin có tính liên kết cao và hỗ trợ suy luận logic.
+
+Một đồ thị tri thức thường bao gồm:
+\begin{itemize}
+    \item \textbf{Nút}: để biểu diễn các thực thể có dữ liệu và quan hệ với các thực thể khác\cite{c4-kg}.
+    \item \textbf{Cạnh}: để thể hiện mối quan hệ giữa các nút\cite{c4-kg}.
+    \item \textbf{Nhãn (Label)}: lưu trữ thông tin, dữ liệu của nút hoặc cạnh\cite{c4-kg}.
+\end{itemize}
+
+Đồ thị tri thức giúp các hệ thống giảm thời gian truy xuất các dữ liệu có tính liên kết cao. Bên cạnh đó, nhờ đặc tính lưu trữ dữ liệu theo quan hệ nên đồ thị tri thức mang lại khả năng suy luận ra các tri thức, quan hệ mới dựa trên các quan hệ đã có.
+
+
+
+\subsubsection{Hệ thống đề xuất}
+Hệ thống đề xuất (Recommendation System) là những hệ thống nhằm cung cấp trải nghiệm cá nhân hóa cho người dùng bằng cách đề xuất các sản phẩm phù hợp với nhu cầu hoặc sở thích. Các phương pháp phổ biến bao gồm:
+
+\begin{itemize}
+    \item \textbf{Lọc cộng tác (Collaborative filtering)}: lọc và đề xuất gợi ý cho một người dùng dựa trên sự tương đồng về đặc điểm và hành vi người dùng của họ so với những người dùng đã sử dụng sản phẩm, dịch vụ\cite{c4-rs}.
+    \item \textbf{Lọc theo nội dung (Content-based filtering)}: lọc và đề xuất gợi ý cho một người dùng dựa trên đặc điểm của các sản phẩm, dịch vụ mà họ đã sử dụng\cite{c4-rs}.
+    \item \textbf{Phương pháp đề xuất lai (Hybrid)}: kết hợp hai phương pháp trên nhằm tối ưu độ chính xác\cite{c4-rs}.
+\end{itemize}
+
+Hệ thống đề xuất có ý nghĩa to lớn cho cả doanh nghiệp và người dùng. Hệ thống đề xuất giúp cải thiện trải nghiệm người dùng, từ đó giúp tăng khả năng giữ chân khách hàng và nâng cao tỉ lệ chuyển đổi từ người dùng thành khách hàng\cite{c4-rs}. 

@@ -1,0 +1,44 @@
+Hệ thống StudyShare được thiết kế theo \textbf{kiến trúc Model--View--Controller (MVC)} nhằm đảm bảo tính rõ ràng trong tổ chức mã nguồn, dễ bảo trì và thuận lợi cho việc mở rộng trong tương lai. Kiến trúc này cho phép tách biệt rõ ràng giữa \textbf{giao diện người dùng}, \textbf{xử lý nghiệp vụ}, và \textbf{quản lý dữ liệu}, giúp nhóm phát triển song song các thành phần mà không gây phụ thuộc chặt chẽ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{images/chap5/kientruc.drawio.png}
+    \vspace{0.5cm}
+    \caption{Sơ đồ kiến trúc hệ thống}
+\end{figure}
+
+Ở mức tổng thể, hệ thống bao gồm ba lớp chính:
+\begin{itemize}
+    \item \textbf{Frontend (View)}: chịu trách nhiệm hiển thị giao diện và tiếp nhận tương tác từ người dùng.
+    \item \textbf{Backend (Controller)}: xử lý logic nghiệp vụ, xác thực, phân quyền và điều phối luồng dữ liệu.
+    \item \textbf{Database (Model)}: lưu trữ và quản lý dữ liệu của hệ thống.
+\end{itemize}
+Các thành phần này giao tiếp với nhau thông qua các giao diện lập trình (API), đảm bảo dữ liệu được truyền tải nhất quán và an toàn.
+
+\subsection{Model}
+Lớp \textbf{Model} đại diện cho dữ liệu cốt lõi của hệ thống và các quy tắc liên quan đến dữ liệu. Thành phần này chịu trách nhiệm:
+\begin{itemize}
+    \item Định nghĩa cấu trúc dữ liệu cho các thực thể chính như người dùng, bài đăng, sản phẩm, đánh giá và tin nhắn.
+    \item Thực hiện các thao tác truy xuất, thêm, sửa và xóa dữ liệu.
+    \item Đảm bảo tính toàn vẹn và nhất quán của dữ liệu thông qua các ràng buộc và quy tắc nghiệp vụ.
+\end{itemize}
+Model được thiết kế độc lập với giao diện người dùng, giúp dữ liệu có thể được tái sử dụng cho nhiều loại giao diện hoặc nền tảng khác nhau trong tương lai.
+
+\subsection{View}
+Lớp \textbf{View} đảm nhiệm vai trò hiển thị thông tin và tương tác trực tiếp với người dùng. Trong StudyShare, View bao gồm:
+\begin{itemize}
+    \item Các màn hình hiển thị danh sách sản phẩm, chi tiết bài đăng, giao diện tìm kiếm và lọc.
+    \item Các biểu mẫu nhập liệu như đăng tin bán/cho tặng, đăng nhập và xác thực người dùng.
+    \item Các thành phần giao diện hỗ trợ trải nghiệm người dùng như danh mục sản phẩm, trang cá nhân và hệ thống đánh giá.
+\end{itemize}
+View chỉ tập trung vào việc trình bày dữ liệu và gửi yêu cầu đến Controller, không xử lý trực tiếp logic nghiệp vụ, từ đó giúp giao diện dễ chỉnh sửa và cải tiến mà không ảnh hưởng đến các phần còn lại của hệ thống.
+
+\subsection{Controller}
+Lớp \textbf{Controller} đóng vai trò trung gian giữa View và Model, chịu trách nhiệm:
+\begin{itemize}
+    \item Tiếp nhận yêu cầu từ người dùng thông qua giao diện.
+    \item Kiểm tra dữ liệu đầu vào, xác thực người dùng và phân quyền truy cập.
+    \item Thực thi logic nghiệp vụ, xử lý các quy trình như đăng bài, tìm kiếm, nhắn tin và đánh giá.
+    \item Gọi Model để truy xuất hoặc cập nhật dữ liệu và trả kết quả về cho View.
+\end{itemize}
+Việc tập trung logic xử lý tại Controller giúp hệ thống dễ kiểm soát luồng xử lý, đồng thời giảm sự phụ thuộc trực tiếp giữa giao diện và dữ liệu.
